@@ -240,6 +240,8 @@ def GetRidOfPronouns(structured_sentence,mentioned_people):
     print "Finished Substituting Pronouns "
     print mentioned_people.People
     print structured_sentence
+    return [structured_sentence,mentioned_people]
+
 def FilteredList (ListToFilter):
 	return [w for w in ListToFilter if not w in set(stopwords.words("english"))]
 
@@ -247,24 +249,12 @@ def returnImportantWords(string):
 
 	try:
                 mentioned_people = PronounTable
-                tagged = nltk.pos_tag(nltk.word_tokenize(sent_tokenize("The Eric ")[0]))
-                grammar = r"""
-                    N: {<DT>?<JJ.*>*<NN.*>+}
-                    """
-                cp = nltk.RegexpParser(grammar)
-                mentioned_people.First_Person_Singular = cp.parse(tagged)[0][1]
-
-
+               
                 sentences = sent_tokenize(string)
                 ImportantWords = []
                 for i in sentences:
                     words = nltk.word_tokenize(i)
 		    tagged = nltk.pos_tag(words)
-		    grammar = r"""
-			    VERB_COMPLEX: {<VB.*><RP>+<NN.*>*}
-                            VERB_NOUN_COMPLEX: {<VB.*><DT>*<NN.*>+}
-			    ADJECTIVISED_NOUN: {<JJ.*>*<NN.*>+}
-                            NOUNIFIED_ADJECTIF: {<DT><JJ.*>+}"""
                     grammar = r"""
                             N: {<DT>?<JJ.*>*<NN.*>+}
                             NA: {<DT><JJ.*>+}
@@ -277,13 +267,11 @@ def returnImportantWords(string):
                             #P -- PRONOUN
 
 	            cp = nltk.RegexpParser(grammar)
-		    result = cp.parse(tagged)
+		    structured_sentence = cp.parse(tagged)
+                    print structured_sentence
+                    Processed = GetRidOfPronouns(structured_sentence,mentioned_people)
+                    mentioned_people = Processed[1]
 
-                print result
-                #result = GetActorsAndReplacePronouns(result,mentioned_people)
-                GetRidOfPronouns(result,mentioned_people)
-                ImportantWords.append(result)
-                return ImportantWords
        	except Exception as e:
 		print(str(e))
 print("Input Text")
