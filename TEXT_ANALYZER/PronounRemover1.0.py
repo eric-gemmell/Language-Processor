@@ -75,9 +75,13 @@ def SetPersonalPronoun(actor,mentioned_people):
 
 def GetActors_N(Chunk):#here Chunk has to be of type N, a Noun
     List = []
-    genderCount = [0,0,0]
+    genderCount = [0,0,0,0]
     for Word in Chunk:
         if "NN" in Word[1]:
+            if "S" in Word[1]:
+                print "Got a Plural Noun"
+                genderCount[3] += 1
+
             gender = GetGender(unicode(Word[0], "utf-8"))
             print "Getting gender of " + Word[0]
             print gender 
@@ -88,7 +92,11 @@ def GetActors_N(Chunk):#here Chunk has to be of type N, a Noun
             else:
                 genderCount[2] += 1
             print genderCount
-    if((genderCount[0] == 0) and (genderCount[1] == 0)):#if nothing in the noun says it has gender, then it doesnt
+    if(genderCount[3] != 0):
+        print "Overall a plural Chunk"
+        print Chunk
+        List.insert(0,["TPP",Chunk])
+    elif((genderCount[0] == 0) and (genderCount[1] == 0)):#if nothing in the noun says it has gender, then it doesnt
         print( "the Chunk " + str(Chunk) + " is neutral")
         List.insert(0,["TPSN",Chunk])
     elif(genderCount[0] >= genderCount[1]):
@@ -105,14 +113,17 @@ def GetActors_N(Chunk):#here Chunk has to be of type N, a Noun
     #Neither have i sorted out the problem of this function being able to recognize plural groups, 
     #maybe it will have to depend for Proper Nouns or other...
 
+
 def GetActors_NA(Chunk):#here Chunk refers to type NA, a adjectif playing the role of a noun
-    print ("Received the Nounified Adjective \"" + str(Chunk) + "\"")                                                                                                                          
-    List = ["TPP" , Chunk]                                                                                                                                               
+    print ("Received the Nounified Adjective \"" + str(Chunk) + "\"")
+    List = []
+    List.insert(0,["TPP" , Chunk])                                                                                                                                             
     print "Added Chunk: " +str(Chunk) + "to the List\n" 
     return List
     #I know I know, this is far from perfect, but still IMO a good simple place to start
     #Atm all this does is recognize adjectives that play the role of nouns as third person plural substitutes
     #it returns them in their new fancy data structure
+
 
 def GetActors_P(Chunk):
     print ("Received the Pronoun \"" +str(Chunk) + "\"")
