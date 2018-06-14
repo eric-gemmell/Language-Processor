@@ -113,7 +113,6 @@ def GetActors_N(Chunk):#here Chunk has to be of type N, a Noun
     #Neither have i sorted out the problem of this function being able to recognize plural groups, 
     #maybe it will have to depend for Proper Nouns or other...
 
-
 def GetActors_NA(Chunk):#here Chunk refers to type NA, a adjectif playing the role of a noun
     print ("Received the Nounified Adjective \"" + str(Chunk) + "\"")
     List = []
@@ -123,7 +122,6 @@ def GetActors_NA(Chunk):#here Chunk refers to type NA, a adjectif playing the ro
     #I know I know, this is far from perfect, but still IMO a good simple place to start
     #Atm all this does is recognize adjectives that play the role of nouns as third person plural substitutes
     #it returns them in their new fancy data structure
-
 
 def GetActors_P(Chunk):
     print ("Received the Pronoun \"" +str(Chunk) + "\"")
@@ -310,3 +308,4 @@ def Process(string):
 
        	except Exception as e:
 		print(str(e))
+
