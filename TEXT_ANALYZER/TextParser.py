@@ -41,16 +41,13 @@ def SplitSuccessive(structured_sentence, ChunkType, SubChunkType):
                 PreviousChunkType = ""
                 for SubChunk in structured_sentence[ChunkIndex]:
                     if(type(SubChunk) != tuple and type(SubChunk) != list):
-                        print SubChunk.label()
                         if(SubChunk.label() == PreviousChunkType == SubChunkType):
-                            print "Got two Chunks of same type"
                             structured_sentence.insert(ChunkIndex+1,SubChunk)
                             structured_sentence[ChunkIndex].remove(SubChunk)
                         PreviousChunkType = SubChunk.label()
                     else:
                         print SubChunk[1] 
                         if(SubChunk[1] == PreviousChunkType == SubChunkType):
-                            print "Got two Chunks of same type!" 
                             structured_sentence.insert(ChunkIndex+1,SubChunk)
                             structured_sentence[ChunkIndex].remove(SubChunk)
                         PreviousChunkType = SubChunk[1]
@@ -62,8 +59,8 @@ def Process(string):
 	try:
                 sentences = MakeIndividualSentences(string)
                 structured_sentences = []
-                for i in sentences:
-                    words = nltk.word_tokenize(i)
+                for sentence in sentences:
+                    words = nltk.word_tokenize(sentence)
 		    tagged = nltk.pos_tag(words)
 
                     tagged = FindTimeMarkers(tagged)
@@ -177,38 +174,41 @@ def Process(string):
                     ClauseWithoutActor:{<SVerb><SNom|Complement.*>}
                     Complement:{<SAdv>}
 
-                    SubClause:{<Complement.*><ClauseWithoutActor>}
-                    Clause:{<Clause><Complement.*>+}
-                    Clause:{<Complement.*>+<,>?<Clause>}
-                    ClauseWithoutDC:{<ClauseWithoutDC><Complement.*>+}
-                    ClauseWithoutActor:{<ClauseWithoutActor><Complement.*>+}
+                    SubClaNIuse:{<Complement.*><Cla.*useWithoutActor>}
+                    ClaNIuse:{<Cla.*use><Complement.*>+}
+                    ClaNIuse:{<Complement.*>+<,>?<Cla.*use>}
+                    ClaNIuseWithoutDC:{<Cla.*useWithoutDC><Complement.*>+}
+                    ClaNIuseWithoutActor:{<Cla.*useWithoutActor><Complement.*>+}
 
-                    SubClause:{<IN><Clause.*>}
+                    SubClaNIuse:{<IN><Cla.*use.*>}
                     Clause:{<Clause><ClauseWithoutActor>}
-                    SubClause:{<Complement.*><ClauseWithoutActor>}
-                    Nucleus:{<Complement><SubClause>}
-                            }<SubClause>{
-                    Complement:{<Nucleus><SubClause>}
+                    SubCla.*use:{<Complement.*><Cla.*useWithoutActor>}
+                    Nucleus:{<Complement><SubCla.*use>}
+                            }<SubCla.*use>{
+                    Complement:{<Nucleus><SubCla.*use>}
                     
-                    ClauseWithoutDC:{<ClauseWithoutDC><SubClause>+}
-                    Clause:{<ClauseWithoutDC><Clause.*>}
-                    SubClause:{<SubClauseWithoutDC><Clause.*|SNom>}
-                    SubClauseWithoutDC:{<SubClauseWithoutDC><Complement.*>+}
+                    ClauseWithoutDC:{<Cla.*useWithoutDC><SubCla.*use>+}
+                    Clause:{<Cla.*useWithoutDC><Cla.*use.*>}
+                    SubClause:{<SubCla.*useWithoutDC><Cla.*use.*|SNom>}
+                    SubClaNIuseWithoutDC:{<SubCla.*useWithoutDC><Complement.*>+}
 
 
 
-                    Clause:{<Clause|SNom><SVerb><SubClause.*|Complement.*>*<Clause.*><SubClause.*|Complement.*>*}
-                    ClauseWithoutDC:{<Clause|SNom><SVerb><SubClause.*|Complement.*>*}
-                    ClauseWithoutActor:{<SVerb><SubClause.*|Complement.*>*<Clause.*><SubClause.*|Complement.*>*}
-                    Clause:{<Clause><SubClause.*|Complement.*>+}
-                    ClauseWithoutDC:{<ClauseWithoutDC><SubClause.*|Complement.*>+}
-                    ClauseWithoutActor:{<ClauseWithoutActor><SubClause.*|Complement.*>+}
+                    Clause:{<Cla.*use|SNom><SVerb><SubCla.*use.*|Complement.*>*<Cla.*use.*><SubCla.*use.*|Complement.*>*}
+                    ClauseWithoutDC:{<Cla.*use|SNom><SVerb><SubCla.*use.*|Complement.*>*}
+                    ClauseWithoutActor:{<SVerb><SubCla.*use.*|Complement.*>*<Cla.*use.*><SubCla.*use.*|Complement.*>*}
+                    Clause:{<Cla.*use><SubCla.*use.*>+}
+                    ClaNIuse:{<Cla.*use><Complement.*>+}
+                    ClauseWithoutDC:{<Cla.*useWithoutDC><Complement.*>+}
+                    ClaNIuseWithoutDC:{<Cla.*useWithoutDC><Complement.*>+}
+                    ClauseWithoutActor:{<Cla.*useWithoutActor><SubClaNIuse.*>+}
+                    ClaNIuseWithoutActor:{<Cla.*useWithoutActor><Complement.*>+}
                     """
 
                     cp = nltk.RegexpParser(UncertainGrammar,loop = 2)
-                    #structured_sentence = cp.parse(structured_sentence)
+                    structured_sentence = cp.parse(structured_sentence)
 
-                    #structured_sentence.draw()
+                    structured_sentence.draw()
                     structured_sentences.append(structured_sentence)
                     #StructureParser(structured_sentence)
                 return structured_sentences
