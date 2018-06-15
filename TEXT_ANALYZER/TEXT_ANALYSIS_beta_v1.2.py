@@ -1,5 +1,5 @@
 import PronounRemover
-import SentenceSplitter
+import TextParser
 import Tkinter
 import GenerateDataTree
 
@@ -11,7 +11,7 @@ text = raw_input("")
 
 print("Here's what we got\n")
 
-structured_sentences = SentenceSplitter.Process(text)
+structured_sentences = TextParser.Process(text)
 #print structured_sentences
 #for structured_sentence in structured_sentences:
 #    structured_sentence.draw()
