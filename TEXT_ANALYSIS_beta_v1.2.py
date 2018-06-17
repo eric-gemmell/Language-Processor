@@ -1,3 +1,7 @@
+import os
+import sys
+sys.path.append('/')
+
 from helpers.PronounRemover.py import *
 from helpers.ParsedTextToDataTable import *
 from helpers.TextParser import *
