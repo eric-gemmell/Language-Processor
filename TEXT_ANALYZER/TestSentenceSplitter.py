@@ -1,6 +1,3 @@
-'''
-THIS IS NOT FUNCTIONAL AT THE MOMENT
-'''
 import TextParser
 import pickle
 from nltk.tree import Tree
