@@ -1,3 +1,6 @@
+'''
+NOT WORKING AT THE MOMENT, HAS NOT BEEN IMPLEMENTES
+'''
 import MySQLdb
 import nltk
 import os
