@@ -1,7 +1,7 @@
-import PronounRemover
-import TextParser
+from helpers.PronounRemover.py import *
+from helpers.ParsedTextToDataTable import *
+from helpers.TextParser import *
 import Tkinter
-import ParsedTextToDataTable 
 
 print("Welcolme to This Version of Text_Analysis...\n")
 print("Please Input the Text You Would Like To Analyse\n")
