@@ -1,7 +1,7 @@
 import PronounRemover
 import TextParser
 import Tkinter
-import GenerateDataTree
+import ParsedTextToDataTable 
 
 print("Welcolme to This Version of Text_Analysis...\n")
 print("Please Input the Text You Would Like To Analyse\n")
@@ -17,5 +17,5 @@ structured_sentences = TextParser.Process(text)
 #    structured_sentence.draw()
 
 print("Generating Data Tree!")
-GenerateDataTree.Process(structured_sentences,text)
+ParsedTextToDataTable.Process(structured_sentences,text)
 
