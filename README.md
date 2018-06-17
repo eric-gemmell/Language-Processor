@@ -3,5 +3,4 @@ Python Based program, meant to understand oral language, extract important piece
 
 To be able to use this program one will need to install nltk as well as Mysql/MariaDB onto their computer. this should not be Ubuntu specific, but has been developed on it so bear that in mind.
 
-Carlos was here too.
-More changes
+I hate you Carlos was here too.
