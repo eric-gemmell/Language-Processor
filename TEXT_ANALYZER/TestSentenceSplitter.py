@@ -1,3 +1,6 @@
+'''
+THIS IS NOT FUNCTIONAL AT THE MOMENT
+'''
 import SentenceSplitter
 import pickle
 from nltk.tree import Tree
