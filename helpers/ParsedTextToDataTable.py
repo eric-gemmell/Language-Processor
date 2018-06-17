@@ -7,7 +7,7 @@ from nltk.tree import Tree
 import Tkinter
 import pickle
 Settings = {}
-with open('ParsedTextToDataTableSettings.pckl',"rb") as f:
+with open('helpers/ParsedTextToDataTableSettings.pckl',"rb") as f:
     try:
 	Settings = pickle.load(f)
     except Exception as e:

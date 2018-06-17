@@ -48,7 +48,7 @@ def FindTimeMarkers(tagged):
     -----------
   
     '''
-    with open('timemarkers.pckl',"rb") as f:
+    with open('helpers/timemarkers.pckl',"rb") as f:
         TimeMarkers = []
         try:
             TimeMarkers = pickle.load(f)
