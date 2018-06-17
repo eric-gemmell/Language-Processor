@@ -1,10 +1,7 @@
-import os
-import sys
-sys.path.append('/')
 
-from helpers.PronounRemover.py import *
-from helpers.ParsedTextToDataTable import *
-from helpers.TextParser import *
+from helpers import PronounRemover
+from helpers import ParsedTextToDataTable
+from helpers import TextParser
 import Tkinter
 
 print("Welcolme to This Version of Text_Analysis...\n")
