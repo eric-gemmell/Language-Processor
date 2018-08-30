@@ -166,9 +166,12 @@ def RemoveNIChunks(structured_sentence):
 	    Inside = Tree(label,[])	   
 		
 	    for Chunk in structured_sentence:
-	 	if "Clause" in Chunk.label():
-		    for SubChunk in Chunk:
-			Inside.append(SubChunk)
+		if type(Chunk) != tuple:
+	 	    if "Clause" in Chunk.label():
+		        for SubChunk in Chunk:
+			    Inside.append(SubChunk)
+		    else:
+		        Inside.append(Chunk)
 		else:
 		    Inside.append(Chunk)
 	    structured_sentence = Inside
@@ -389,12 +392,10 @@ def Process(string):
 		    tagged = nltk.pos_tag(words)
 
                     tagged = FindTimeMarkers(tagged)
-                    print tagged
                     structured_sentence = ApplyVerbGrammar(tagged)
 		    structured_sentence = ApplyNounGrammar(structured_sentence)
 		    structured_sentence = ApplyUncertainGrammar(structured_sentence)
 		    structured_sentence = RemoveNIChunks(structured_sentence)
-
                     structured_sentence.draw()
                     structured_sentences.append(structured_sentence)
                     #StructureParser(structured_sentence)
