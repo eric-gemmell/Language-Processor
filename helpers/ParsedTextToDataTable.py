@@ -1,4 +1,4 @@
-import MySQLdb
+#import MySQLdb
 import nltk
 import os
 from nltk.tokenize import sent_tokenize, word_tokenize, PunktSentenceTokenizer
